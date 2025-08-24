@@ -3,12 +3,17 @@ FROM python:3.11-slim
 # 设置工作目录
 WORKDIR /app
 
-设置阿里云APT源
-RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list && \
-    sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
+#设置阿里云APT源
+RUN \
+    # 1. 直接覆盖主源文件
+    printf "deb https://mirrors.aliyun.com/debian/ trixie main\ndeb https://mirrors.aliyun.com/debian-security trixie-security main\ndeb https://mirrors.aliyun.com/debian/ trixie-updates main\n" > /etc/apt/sources.list && \
+    # 2. 删除所有额外的源配置
+    rm -rf /etc/apt/sources.list.d/* 2>/dev/null || true && \
+    # 3. 更新包列表
+    apt-get update
 
 # 安装系统依赖
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
