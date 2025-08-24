@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  vps-monitor:
+    build: .
+    container_name: vps-monitor
+    restart: unless-stopped
+    environment:
+      # Pterodactyl面板配置
+      - PANEL_URL=${PANEL_URL}
+      - SERVER_ID=${SERVER_ID}
+      - SERVER_UUID=${SERVER_UUID}
+      - NODE_HOST=${NODE_HOST}
+      - WS_PORT=${WS_PORT:-8080}
+      
+      # 认证配置
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+      
+      # 监控配置
+      - CHECK_INTERVAL=${CHECK_INTERVAL:-30}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+      
+      # 钉钉通知配置 (可选)
+      - DINGTALK_WEBHOOK_URL=${DINGTALK_WEBHOOK_URL}
+    
+    volumes:
+      # 挂载日志目录
+      - ./logs:/app/logs
+      # 挂载配置文件（可选）
+      - ./.env:/app/.env
+    
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8080', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # 网络配置
+    networks:
+      - vps-monitor-network
+
+networks:
+  vps-monitor-network:
+    driver: bridge
+
+volumes:
+  vps-monitor-logs:
