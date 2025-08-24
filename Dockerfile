@@ -3,6 +3,10 @@ FROM python:3.11-slim
 # 设置工作目录
 WORKDIR /app
 
+设置阿里云APT源
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
+
 # 安装系统依赖
 RUN apt-get update && apt-get install -y \
     gcc \
