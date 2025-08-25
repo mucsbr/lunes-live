@@ -78,16 +78,16 @@ DINGTALK_WEBHOOK_URL=https://oapi.dingtalk.com/robot/send?access_token=your-toke
 
 | 参数 | 说明 | 必填 | 默认值 |
 |------|------|------|--------|
-| `PANEL_URL` | Pterodactyl面板地址 | ✅ | - |
-| `SERVER_ID` | 服务器ID | ✅ | - |
-| `SERVER_UUID` | 服务器UUID | ✅ | - |
-| `NODE_HOST` | 节点主机名 | ✅ | - |
+| `PANEL_URL` | Pterodactyl面板地址 | ✅ | 点击manage后进入控制台的域名：https://ctrl.lunes.host/ |
+| `SERVER_ID` | 服务器ID | ✅ | 控制台页面url的path里面可以取到：https://ctrl.lunes.host/server/server_id |
+| `SERVER_UUID` | 服务器UUID | ✅ | 进入控制台页面点击setting然后看左下角长的那个就是uuid |
+| `NODE_HOST` | 节点主机名 | ✅ | 点击network里面的hostname就是 |
 | `WS_PORT` | WebSocket端口 | ❌ | 8080 |
 | `USERNAME` | 登录用户名 | ✅ | - |
 | `PASSWORD` | 登录密码 | ✅ | - |
 | `CHECK_INTERVAL` | 检查间隔（秒） | ❌ | 30 |
 | `MAX_RETRIES` | 最大重试次数 | ❌ | 3 |
-| `DINGTALK_WEBHOOK_URL` | 钉钉webhook地址 | ❌ | - |
+| `DINGTALK_WEBHOOK_URL` | 钉钉webhook地址 | ❌ | 群webhook机器人 |
 
 ## 📋 系统要求
 
